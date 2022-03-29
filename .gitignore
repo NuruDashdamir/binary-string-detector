@@ -1,0 +1,4 @@
+*.suo
+BinaryStringDetector/bin
+BinaryStringDetector/obj
+BinaryStringDetector/backup
