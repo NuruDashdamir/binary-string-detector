@@ -36,6 +36,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBoxOnlyNullTerminated = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownMinLen)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -126,12 +127,25 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Minimal string length:";
             // 
+            // checkBoxOnlyNullTerminated
+            // 
+            this.checkBoxOnlyNullTerminated.AutoSize = true;
+            this.checkBoxOnlyNullTerminated.Checked = true;
+            this.checkBoxOnlyNullTerminated.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOnlyNullTerminated.Location = new System.Drawing.Point(249, 568);
+            this.checkBoxOnlyNullTerminated.Name = "checkBoxOnlyNullTerminated";
+            this.checkBoxOnlyNullTerminated.Size = new System.Drawing.Size(238, 21);
+            this.checkBoxOnlyNullTerminated.TabIndex = 7;
+            this.checkBoxOnlyNullTerminated.Text = "Show only null-terminated strings";
+            this.checkBoxOnlyNullTerminated.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1182, 603);
+            this.Controls.Add(this.checkBoxOnlyNullTerminated);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -162,6 +176,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBoxOnlyNullTerminated;
     }
 }
 

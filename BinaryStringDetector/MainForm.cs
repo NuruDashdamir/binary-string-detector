@@ -14,7 +14,7 @@ namespace BinaryStringDetector
             notFoundText = new List<String> {"(not found)"};
         }
 
-        public List<String> getValidStringsFromFile(String fileLocation, bool unicodeOverAscii = false, int minimalDetectedStringLength = 7)
+        public List<String> getValidStringsFromFile(String fileLocation, int minimalDetectedStringLength = 7, bool unicodeOverAscii = false, bool onlyNullTerminated = false)
         {
             byte[] fileContent;
             List<String> validStringList = new List<String>(); 
@@ -27,7 +27,7 @@ namespace BinaryStringDetector
             int validStrLenCounter = 0;
             long startingAdress = 0;
 
-            for (int i = 0; i < fileContent.Length - 1; i++)
+            for (int i = 0; i < fileContent.Length - System.Convert.ToInt32(unicodeOverAscii); i++)
             {
                 byte firstByte = fileContent[i];
 
@@ -36,14 +36,17 @@ namespace BinaryStringDetector
                 byte secondByte = 0;
                 if (unicodeOverAscii) secondByte = fileContent[++i];
 
-                if (firstByte < 127 && firstByte > 31 && secondByte == 0)
+                if ( secondByte == 0
+                     && ((firstByte < 127 && firstByte > 31)
+                     || (firstByte == 9 || firstByte == 10 || firstByte == 13))
+                    )
                 {
                     validString += System.Convert.ToChar(firstByte);
                     validStrLenCounter++;
                 }
                 else
                 {
-                    if (validStrLenCounter > minimalDetectedStringLength)
+                    if (validStrLenCounter > minimalDetectedStringLength && (!onlyNullTerminated || firstByte == 0))
                     {
                         // print with hexadecimal location of found string
                         validStringList.Add(startingAdress.ToString("X2").PadLeft(8, '0') + " - " + validString);
@@ -53,15 +56,19 @@ namespace BinaryStringDetector
                     startingAdress = i;
                 }
             }
+
+            // in case file is finished and last else is 
+            if (!onlyNullTerminated && validString.Length != 0) validStringList.Add(startingAdress.ToString("X2").PadLeft(8, '0') + " - " + validString);
+            
             return validStringList;
         }
 
         private void prepareListboxes(String filename)
         {
             int minimalValidStrLen = (int)numUpDownMinLen.Value;
-            listBoxAsciiStrings.DataSource = getValidStringsFromFile(filename, false, minimalValidStrLen);
+            listBoxAsciiStrings.DataSource = getValidStringsFromFile(filename, minimalValidStrLen, false, checkBoxOnlyNullTerminated.Checked);
             if (listBoxAsciiStrings.Items.Count == 0) listBoxAsciiStrings.DataSource = notFoundText;
-            listBoxUnicodeStrings.DataSource = getValidStringsFromFile(filename, true, minimalValidStrLen);
+            listBoxUnicodeStrings.DataSource = getValidStringsFromFile(filename, minimalValidStrLen, true, checkBoxOnlyNullTerminated.Checked);
             if (listBoxUnicodeStrings.Items.Count == 0) listBoxUnicodeStrings.DataSource = notFoundText;
         }
 
@@ -83,6 +90,7 @@ namespace BinaryStringDetector
             else
                 e.Effect = DragDropEffects.None;
         }
+
 
     }
 }
