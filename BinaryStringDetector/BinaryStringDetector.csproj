@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="binary-string-finder-multi.ico" />
     <Content Include="icons\binary-string-finder-multi.ico" />
     <Content Include="icons\binary-string-finder-32px-only.ico" />
   </ItemGroup>
