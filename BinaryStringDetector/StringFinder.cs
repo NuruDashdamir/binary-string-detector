@@ -39,7 +39,7 @@ namespace BinaryStringDetector
                 }
                 else
                 {
-                    if (validStrLenCounter > minimalStrLen && (!isNullTerminationNeeded || firstByte == 0))
+                    if (validStrLenCounter >= minimalStrLen && (!isNullTerminationNeeded || firstByte == 0))
                     {
                         // print with hexadecimal location of found string
                         validStringList.Add(startingAdress.ToString("X2").PadLeft(8, '0') + " - " + validString);

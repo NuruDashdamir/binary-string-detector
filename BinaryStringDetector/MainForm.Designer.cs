@@ -94,7 +94,7 @@
             this.numUpDownMinLen.Size = new System.Drawing.Size(42, 22);
             this.numUpDownMinLen.TabIndex = 3;
             this.numUpDownMinLen.Value = new decimal(new int[] {
-            4,
+            5,
             0,
             0,
             0});
